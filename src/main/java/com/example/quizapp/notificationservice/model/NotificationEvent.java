@@ -9,4 +9,5 @@ public class NotificationEvent {
     private String recipient;
     private String message;
     private String sender;
+    private String channel;
 }
