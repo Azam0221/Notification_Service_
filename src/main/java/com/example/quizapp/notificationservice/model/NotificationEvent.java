@@ -4,10 +4,10 @@ import lombok.Data;
 
 @Data
 public class NotificationEvent {
-    private String messageId;
+    private String id;
     private String eventType;
     private String recipient;
-    private String message;
-    private String sender;
-    private String channel;
+    private String subject;
+    private String body;
+    private long occurredOn;
 }
