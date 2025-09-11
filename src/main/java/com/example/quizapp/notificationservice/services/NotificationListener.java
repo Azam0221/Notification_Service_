@@ -39,12 +39,12 @@ public class  NotificationListener {
                 return;
             }
 
-            //Rate Limit per recipient
+
             String rateKey = "notif:rate" + event.getEventType();
             String countStr = redisTemplate.opsForValue().get(rateKey);
             int count = countStr == null ? 0 : Integer.parseInt(countStr);
             if(count > 100){
-                // skip or requeue logic (here we skip)
+                // skip or requeue logic  (implement the DLQ method)
                 ack.acknowledge();
                 return;
             }
@@ -52,7 +52,6 @@ public class  NotificationListener {
             redisTemplate.expire(rateKey, Duration.ofMinutes(1));
 
 
-            // send the mail
             emailSenderService.sendMail(event.getRecipient(),event.getSubject(),event.getBody());
 
             ack.acknowledge();
